@@ -1,0 +1,78 @@
+<nav ng-controller="LoginController as vm" class=" navbar navbar-expand-lg navbar-dark bg-primary" ng-init="vm.init()">
+    <a class="navbar-brand" href="#">Hope For Refugees app</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01"
+            aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarColor01">
+        <ul class="navbar-nav mr-auto">
+            <li ng-class="vm.isActiveTab('')" class="nav-item active"><a class="nav-link" href="/">Home</a></li>
+            <li ng-class="vm.isActiveTab('about')" class="nav-item active"><a class="nav-link" href="/#/about">About
+                Us</a></li>
+            <li ng-class="vm.isActiveTab('dashboard')" class="nav-item active"><a class="nav-link" href="/#/dashboard">Dashaboard</a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="example.com" id="dropdown03"
+                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Add Content</a>
+                <div class="dropdown-menu" aria-labelledby="dropdown03">
+                    <a class="dropdown-item" href="/#/services">Service Providers</a>
+                    <a class="dropdown-item" href="/#/police">Police Station</a>
+                    <a class="dropdown-item" href="/#/posts">Gender Based Violence support </a>
+                </div>
+            </li>
+        </ul>
+        <ul class="navbar-nav mr-auto">
+
+            <li class="nav-item active" ng-if="vm.message" ><div class="alert alert-dismissible alert-success" style="max-width: 40rem;">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <p>{{ vm.message }}</p>
+            </div></li>
+            <li class="nav-item active" ng-if="vm.error">  <div  class="alert alert-dismissible alert-danger" style="max-width: 40rem;">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <p>{{ vm.error }}</p>
+            </div></li>
+        </ul>
+        <form ng-if="!vm.isLoggedIn()" class="form-inline my-2 my-lg-0" role="login" ng-submit="vm.login()">
+            <div class="form-group" ng-class="{'has-error' : vm.error }">
+                <input class="form-control mr-sm-2" type="text" placeholder="Username" ng-model="vm.username"
+                       autocapitalize="none">
+            </div>
+            <div class="form-group" ng-class="{'has-error' : vm.error }">
+                <input class="form-control mr-sm-2" type="password" placeholder="password" ng-model="vm.password"
+                       autocapitalize="none">
+            </div>
+            <button class="btn btn-secondary my-2 my-sm-0" type="submit">Login</button>
+        </form>
+    </div>
+    <ul ng-if="vm.isLoggedIn()" class="navbar-nav mr-auto">
+        <li class="nav-item "><p class="navbar-text">Welcome back {{vm.loggedinUser}}. </p></li>
+        <li>
+            <button class="btn btn-danger btn-sm" ng-click="vm.logout()">Logout</button>
+    </ul>
+
+</nav>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+        <html ng-app="hopefr">
+<!--[if lt IE 7]>
+<html lang="en" ng-app="hopefr" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>
+<html lang="en" ng-app="hopefr" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>
+<html lang="en" ng-app="hopefr" class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html lang="en" ng-app="hopefr" class="no-js"> <!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title> Hope For Refugees</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/normalize.css">
+    <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/main.css">
+    <link rel="stylesheet" href="app.css">
+    <link rel="stylesheet" href="assets/css/bootstrap.css">
+    <link rel="stylesheet" href="assets/fonts/fontawesome-webfont.eot">
+    <link rel="stylesheet" href="assets/css/custom.css">
+
+    <script src="bower_components/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
+</head>
+<body>
+
+
+<mh-navigation></mh-navigation>
+
+<div class="container">
+
+    <div ng-view> </div>
+</div>
+
+<footer class="footer">
+    <!--&lt;!&ndash;[if lt IE 7]>-->
+    <!--<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade-->
+        <!--your browser</a> to improve your experience.</p>-->
+    <!--<![endif]&ndash;&gt;-->
+    <!--<div> Hope For Refuge app: v<span app-version></span></div>-->
+
+    <div class="">
+        <p class="text-muted text-center">
+            <a href="#" target="_blank"><img src="assets/images/fullstacktraining_logo.png" height="26" alt="Full Stack Training"/></a>
+        </p>
+
+        <p class="text-muted text-center">
+            <small>&copy; 2018 Hope For Refugees</small>
+        </p>
+    </div>
+</footer>
+
+
+<!-- In production use:
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/x.x.x/angular.min.js"></script>
+-->
+
+<!--<script src="https://www.gstatic.com/firebasejs/4.9.1/firebase.js"></script>-->
+
+<script src="bower_components/angular/angular.js"></script>
+<script src="bower_components/angular-route/angular-route.js"></script>
+<script src="app.js"></script>
+<script src="assets/js/jquery.min.js"></script>
+<script src="assets/js/bootstrap.min.js"></script>
+<script src="home/HomeController.js"></script>
+<script src="login/login-controller.js"></script>
+<script src="directives/navigation-directive/navigation-directive.js"></script>
+<script src="assets/js/bootstrap.min.js.map"></script>
+<script src="error/error-controller.js"></script>
+<script src="about/about-controller.js"></script>
+<script src="dashboard/DashboardController.js"></script>
+<script src="services/ServicesController.js"></script>
+<script src="police/PoliceController.js"></script>
+<script src="post/PostController.js"></script>
+<script src="assets/js/vendor/anchor.min.js"></script>
+<script src="assets/js/vendor/clipboard.min.js"></script>
+<script src="assets/js/vendor/holder.min.js"></script>
+<script src="assets/js/vendor/jquery-slim.min.js"></script>
+<script src="assets/js/vendor/popper.min.js"></script>
+<script src="components/version/version.js"></script>
+<script src="components/version/version-directive.js"></script>
+<script src="components/version/interpolate-filter.js"></script>
+<script src="bower_components/angularfire/dist/angularfire.min.js"></script>
+<script src="bower_components/firebase/firebase.js"></script>
+<script src="bower_components/firebase/firebase-app.js"></script>
+<script src="bower_components/firebase/firebase-database.js"></script>
+<script src="bower_components/firebase/firebase-auth.js"></script>
+<script src="firebasecred.js"></script>
+</body>
+</html>

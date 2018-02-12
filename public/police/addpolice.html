@@ -1,0 +1,33 @@
+<div ng-if="vm.message" class="alert alert-dismissible alert-success" style="max-width: 40rem;">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    <p>{{ vm.message }}</p>
+</div>
+<div ng-if="vm.error" class="alert alert-dismissible alert-danger" style="max-width: 40rem;">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    <p>{{ vm.error }}</p>
+</div>
+<div ng-hide="vm.message" class="card border-primary " style="max-width: 60rem;">
+    <div class="card-header">Add New Police Station</div>
+    <div class="card-body text-primary">
+        <h4 class="card-title">Fill the Police Post Details.</h4>
+        <form  name="addpolice" ng-submit="vm.addPolice()">
+            <div class="form-group">
+                <label class="col-form-label" for="postname">Names</label>
+                <input type="text" name="postname" class="form-control" placeholder="Name of Police Post" id="postname" autocomplete="text" ng-model="vm.postname" >
+            </div>
+            <div class="form-group">
+                <label class="col-form-label" for="incharge">Incharge person</label>
+                <input type="text" class="form-control" placeholder="OC/incharge names" id="incharge" ng-model="vm.incharge" autocomplete="text" required ng-required="true">
+            </div>
+            <div class="form-group">
+                <label class="col-form-label" for="phone">Contact Numbers</label>
+                <input type="tel" class="form-control" placeholder="Station contact number" id="phone" required ng-model="vm.phone">
+            </div>
+            <div class="form-group">
+                <label for="details">Details</label>
+                <textarea class="form-control" id="details" rows="3" ng-model="vm.details" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+</div>
