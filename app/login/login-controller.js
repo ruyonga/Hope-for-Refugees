@@ -5,35 +5,42 @@
 angular.module('hopefr')
     .controller('LoginController', LoginController);
 
-function LoginController() {
+function LoginController($location, AuthFactory) {
 
     var vm = this;
     vm.name = "Daniel";
     vm.showbar = false;
     vm.title = "Login";
 
+    vm.isLoggedIn = function () {
+        if(AuthFactory.isLoggedIn){
+            vm.loggedinUser = firebase.auth().currentUser.displayName;
+            return true;
+        }else{
+            return false;
+        }
+    };
+
+
     /**
      * Sign into the dashboard to login
      */
     vm.login = function () {
-
-
+console.log("Called Login module");
     firebase.auth()
         .signInWithEmailAndPassword(vm.username,vm.password)
         .catch(function(error) {
             if(error){
-        console.log(error.code);
-        console.log(error.message);
-            vm.error = error.message;
-            vm.isLoggedIn  = function () {
-                return false
-              }
+                 console.log("erro"+error.code);
+                 console.log("Error message"+error.message);
+                 vm.error = error.message;
+                 vm.isLoggedIn  = false
+                AuthFactory.isLoggedIn = false;
             }else{
                 vm.message = "Logged In";
-
-                vm.isLoggedIn  = function () {
-                    return true;
-                }
+                console.log("logged In");
+                vm.isLoggedIn  = true;
+                AuthFactory.isLoggedIn = true;
             }
     });
 
@@ -46,6 +53,7 @@ function LoginController() {
         firebase.auth().signOut().then(function() {
             console.log("Logged out!");
             vm.message = "Logout Successfully";
+            AuthFactory.isLoggedIn = false;
         }, function(error) {
             console.log(error.code);
             console.log(error.message);
@@ -78,4 +86,10 @@ function LoginController() {
     //         console.log(errorMessage);
     //     });
     // }
+
+
+    vm.isActiveTab = function (url) {
+        var currentPath = $location.path().split('/')[1];
+        return (url === currentPath ? 'active': '');
+    }
 }

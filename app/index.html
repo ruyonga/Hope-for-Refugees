@@ -22,41 +22,36 @@
     <link rel="stylesheet" href="assets/css/custom.css">
 
     <script src="bower_components/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
+    <link href="assets/css/one-page-wonder.css" rel="stylesheet">
+
 </head>
 <body>
 
 
 <mh-navigation></mh-navigation>
 
-<div class="container">
 
-    <div ng-view> </div>
-</div>
+    <div ng-view>
 
-<footer class="footer">
-    <!--&lt;!&ndash;[if lt IE 7]>-->
-    <!--<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade-->
-        <!--your browser</a> to improve your experience.</p>-->
-    <!--<![endif]&ndash;&gt;-->
-    <!--<div> Hope For Refuge app: v<span app-version></span></div>-->
-
-    <div class="">
-        <p class="text-muted text-center">
-            <a href="#" target="_blank"><img src="assets/images/fullstacktraining_logo.png" height="26" alt="Full Stack Training"/></a>
-        </p>
-
-        <p class="text-muted text-center">
-            <small>&copy; 2018 Hope For Refugees</small>
-        </p>
-    </div>
-</footer>
+        <div ng-if="vm.message"  class="alert alert-dismissible alert-success" style="max-width: 40rem;">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <p>{{ vm.message }}</p>
+        </div>
+        <div  ng-if="vm.error"  class="alert alert-dismissible alert-danger" style="max-width: 40rem;">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <p>{{ vm.error }}</p>
+        </div></div>
 
 
-<!-- In production use:
-<script src="//ajax.googleapis.com/ajax/libs/angularjs/x.x.x/angular.min.js"></script>
--->
 
-<!--<script src="https://www.gstatic.com/firebasejs/4.9.1/firebase.js"></script>-->
+
+    <!-- Footer -->
+    <footer class="py-5 bg-warning">
+        <div class="container">
+            <p class="m-0 text-center text-white small">Copyright &copy; Hope For Refugees 2018</p>
+        </div>
+        <!-- /.container -->
+    </footer>
 
 <script src="bower_components/angular/angular.js"></script>
 <script src="bower_components/angular-route/angular-route.js"></script>
@@ -87,6 +82,11 @@
 <script src="bower_components/firebase/firebase-database.js"></script>
 <script src="bower_components/firebase/firebase-auth.js"></script>
 <script src="bower_components/firebase/firebase-storage.js"></script>
+<script src="healthcenters/HealthCenterController.js"></script>
 <script src="firebasecred.js"></script>
+<script src="auth/auth-factory.js"></script>
+<script src="auth/auth-interceptor.js"></script>
+<link href="https://fonts.googleapis.com/css?family=Catamaran:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
 </body>
 </html>
