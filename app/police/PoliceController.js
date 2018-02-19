@@ -1,7 +1,7 @@
 angular.module('hopefr')
     .controller('PoliceController', PoliceController);
 
-function PoliceController($scope, $firebaseArray,$firebaseObject) {
+function PoliceController($scope, $firebaseArray, $firebaseObject) {
 
     var police = firebase.database().ref("police/");
 
@@ -14,36 +14,48 @@ function PoliceController($scope, $firebaseArray,$firebaseObject) {
     /**
      * Get all Police posts
      */
-    vm.policePosts = function () {
 
-        police.orderByChild("postname").on("child_added", function(data) {
-            console.log(data.val());
 
+
+        police.orderByChild("postname").on("child_added", function(data)  {
+          // console.log(data.val());
+
+             list = $firebaseArray(police);
+
+            list.$loaded().then(function() {
+                $scope.list = [];
+
+                angular.forEach(list, function(value,key){
+
+                    $scope.list.push({ id: key, data: value})
+                });
+                vm.policePosts = $scope.list;
+                console.log(vm.policePosts);
+            });
 
         }, function (error) {
 
             console.log("Error: " + error.code);
         });
 
-    };
-    console.log(vm.policePosts());
+
     police.off("value");
 
     /**
      * Add New Police Post
      */
 
-    vm.addPolice = function(){
+    vm.addPolice = function () {
 
-        if(!vm.postname || !vm.incharge){
+        if (!vm.postname || !vm.incharge) {
             vm.error = 'The In charge person and the police station name are required';
-        }else{
+        } else {
 
             police.push({
-                postname : vm.postname,
-                incharge : vm.incharge,
-                phone : vm.phone,
-                details : vm.details
+                postname: vm.postname,
+                incharge: vm.incharge,
+                phone: vm.phone,
+                details: vm.details
 
             })
 
