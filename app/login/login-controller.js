@@ -14,11 +14,14 @@ function LoginController($location, AuthFactory) {
 
     vm.isLoggedIn = function () {
         if(AuthFactory.isLoggedIn){
-            vm.loggedinUser = firebase.auth().currentUser.displayName;
+            console.log("whose logged in"+vm.loggedinUser);
+            vm.loggedinUser = firebase.auth().currentUser.getToken();
             return true;
         }else{
+            vm.loggedinUser = null;
             return false;
         }
+
     };
 
 
@@ -26,24 +29,27 @@ function LoginController($location, AuthFactory) {
      * Sign into the dashboard to login
      */
     vm.login = function () {
+        var  rr = null;
 console.log("Called Login module");
     firebase.auth()
         .signInWithEmailAndPassword(vm.username,vm.password)
         .catch(function(error) {
-            if(error){
-                 console.log("erro"+error.code);
-                 console.log("Error message"+error.message);
-                 vm.error = error.message;
-                 vm.isLoggedIn  = false
+            if(error) {
+                rr = error;
+                console.log("erro" + error.code);
+                console.log("Error message" + error.message);
+                vm.error = error.message;
+                vm.isLoggedIn = false
                 AuthFactory.isLoggedIn = false;
-            }else{
-                vm.message = "Logged In";
-                console.log("logged In");
-                vm.isLoggedIn  = true;
-                AuthFactory.isLoggedIn = true;
             }
     });
-
+        if(rr === null){
+            vm.message = "Logged In";
+            console.log("logged In");
+            vm.isLoggedIn  = true;
+            AuthFactory.isLoggedIn = true;
+            $location.path('/');
+        }
 };
 
     /**
@@ -54,6 +60,8 @@ console.log("Called Login module");
             console.log("Logged out!");
             vm.message = "Logout Successfully";
             AuthFactory.isLoggedIn = false;
+            vm.loggedinUser = null;
+            $location.path('/');
         }, function(error) {
             console.log(error.code);
             console.log(error.message);

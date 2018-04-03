@@ -7,24 +7,24 @@
 
     <div class="collapse navbar-collapse" id="navbarColor01">
         <ul class="navbar-nav mr-auto">
-            <li ng-class="vm.isActiveTab('')" class="nav-item active"><a class="nav-link" href="/#/">Home</a></li>
-            <li ng-class="vm.isActiveTab('about')" class="nav-item active"><a class="nav-link" href="/#/about">About
+            <li ng-class="vm.isActiveTab('')" class="nav-item active"><a class="nav-link" href="/#!/">Home</a></li>
+            <li ng-class="vm.isActiveTab('about')" class="nav-item active"><a class="nav-link" href="/#!/about">About
                 Us</a></li>
-            <li ng-if="vm.isLoggedIn()" ng-class="vm.isActiveTab('dashboard')" class="nav-item active"><a class="nav-link" href="/#/dashboard">Dashaboard</a>
+            <li ng-class="vm.isActiveTab('dashboard')" class="nav-item active"><a class="nav-link" href="/#!/dashboard">Reports</a>
             </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="example.com" id="dropdown03"
                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Add Content</a>
                 <div class="dropdown-menu" aria-labelledby="dropdown03">
-                    <a class="dropdown-item" href="/#/services">Service Providers</a>
-                    <a class="dropdown-item" href="/#/police">Police Station</a>
-                    <a class="dropdown-item" href="/#/healthcenters">Health Centers</a>
-                    <a class="dropdown-item" href="/#/posts">Gender Based Violence support </a>
+                    <a class="dropdown-item" href="/#!/services">Service Providers</a>
+                    <a class="dropdown-item" href="/#!/police">Police Station</a>
+                    <a class="dropdown-item" href="/#!/healthcenters">Health Centers</a>
+                    <a class="dropdown-item" href="/#!/posts">Posts </a>
                 </div>
             </li>
         </ul>
 
-        <form ng-if="!vm.isLoggedIn()" class="form-inline my-2 my-lg-0" role="login" ng-submit="vm.login()">
+        <form ng-if="firebase.auth.currentuser == null" class="form-inline my-2 my-lg-0" role="login" ng-submit="vm.login()">
             <div class="form-group" ng-class="{'has-error' : vm.error }">
                 <input class="form-control mr-sm-2" type="text" placeholder="Username" ng-model="vm.username"
                        autocapitalize="none">
@@ -36,15 +36,22 @@
             <button class="btn btn-secondary my-2 my-sm-0" type="submit">Login</button>
         </form>
     </div>
-    <ul ng-if="vm.isLoggedIn()" class="navbar-nav mr-auto">
-        <li class="nav-item "><p class="navbar-text">Welcome back {{ vm.loggedinUser }}. </p></li>
+    <ul ng-if="firebase.auth.currentuser != null" class="navbar-nav mr-auto">
+        <li class="nav-item " ><p class="navbar-text" style="color:white; ">Welcome back    {{ vm.loggedinUser }}. </p></li>
         <li>
             <button class="btn btn-danger btn-sm" ng-click="vm.logout()">Logout</button>
     </ul>
 
 </nav>
 
-
+<div ng-if="vm.message" class="alert alert-dismissible alert-success" style="max-width: 40rem;">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    <p>{{ vm.message }}</p>
+</div>
+<div ng-if="vm.error" class="alert alert-dismissible alert-danger" style="max-width: 40rem;">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    <p>{{ vm.error }}</p>
+</div>
 
 
 

@@ -54,7 +54,6 @@ function config($routeProvider, $locationProvider, $httpProvider) {
         access: {
             restricted: false
         }
-
         }).when('/addpolice', {
             templateUrl: 'police/addpolice.html',
             controller: 'PoliceController',
@@ -62,8 +61,15 @@ function config($routeProvider, $locationProvider, $httpProvider) {
         access: {
             restricted: true
         }
+    }).when('/police/:id', {
+        templateUrl: 'police/SinglePolice.html',
+        controller: 'SinglePoliceController',
+        controllerAs: 'vm',
+        access: {
+            restricted: false
+        }
 
-        }).when('/services', {
+    }).when('/services', {
             templateUrl: 'services/services.html',
             controller: 'ServicesController',
             controllerAs: 'vm',
@@ -87,7 +93,15 @@ function config($routeProvider, $locationProvider, $httpProvider) {
             restricted: true
         }
 
-        }).when('/healthcenters', {
+        }).when('/post/:id', {
+        templateUrl: 'post/editpost.html',
+        controller: 'PostController',
+        controllerAs: 'vm',
+        access: {
+            restricted: true
+        }
+
+    }).when('/healthcenters', {
             templateUrl: 'healthcenters/healthcenters.html',
             controller: 'HealthCenterController',
             controllerAs: 'vm',
@@ -114,9 +128,10 @@ function config($routeProvider, $locationProvider, $httpProvider) {
 }
 
 
+
 function run($rootScope, $location, $window, AuthFactory) {
     $rootScope.$on('$routeChangeStart', function (event, nextRoute, currentRoute) {
-        if(nextRoute.access !== undefined && nextRoute.access.restricted && !AuthFactory.isLoggedIn){
+        if(nextRoute.access == undefined && nextRoute.access.restricted && AuthFactory.isLoggedIn){
             event.preventDefault();
             $location.path('/')
         }

@@ -1,8 +1,8 @@
 angular.module('hopefr')
     .controller('HealthCenterController', ServicesController);
 
-function ServicesController() {
-    var serviceproviders = firebase.database().ref("healthcenters/");
+function ServicesController($scope,$firebaseArray) {
+    var health = firebase.database().ref("healthcenters/");
 
     var vm = this;
     vm.name = "Health Centers";
@@ -13,26 +13,36 @@ function ServicesController() {
     /**
      * Get all services  providers
      */
-    vm.serviceproviders = function () {
-
-        serviceproviders.orderByChild("orgname").on("child_added", function(data) {
+  
+    health.orderByChild("orgname").on("child_added", function(data) {
             console.log(data.val());
 
+            var  list = $firebaseArray(health);
 
+            list.$loaded().then(function() {
+                $scope.list = [];
+
+                angular.forEach(list, function(value,key){
+
+                    $scope.list.push({ id: key, data: value})
+                });
+                vm.health  = $scope.list;
+                console.log(   vm.health );
+            });
         }, function (error) {
 
             console.log("Error: " + error.message);
         });
 
-    };
-    console.log(vm.serviceproviders());
-    serviceproviders.off("value");
+  
+    console.log(vm.health);
+    health.off("value");
 
     /**
      * Add New service provider Post
      */
 
-    if(firebase.auth.Auth.currentUser != null) {
+    if(firebase.auth().currentUser != null) {
         vm.addService = function () {
             // var uploadTask = "";
             // var storageRef = firebase.storage().ref("folderName/logo.jpg");
@@ -46,7 +56,7 @@ function ServicesController() {
                 vm.error = 'Please enter the contact person and name of service providers';
             } else {
 
-                serviceproviders.push({
+                health.push({
                     orgname: vm.orgname,
                     contactperson: vm.contactperson,
                     phone: vm.phone,
@@ -61,4 +71,6 @@ function ServicesController() {
     }else {
         vm.error ="You need to login before you can post"
     }
+    
+    
 }

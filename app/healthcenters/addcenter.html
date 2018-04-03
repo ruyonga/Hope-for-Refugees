@@ -1,3 +1,6 @@
+<div class="container" style="padding-left: 20%;">
+
+
 <div ng-if="vm.message" class="alert alert-dismissible alert-success" style="max-width: 40rem;">
     <button type="button" class="close" data-dismiss="alert">&times;</button>
     <p>{{ vm.message }}</p>
@@ -6,7 +9,8 @@
     <button type="button" class="close" data-dismiss="alert">&times;</button>
     <p>{{ vm.error }}</p>
 </div>
-<div ng-hide="vm.message" class="card border-primary " style="max-width: 60rem;">
+
+<div ng-hide="vm.message" class="card border-primary " style="max-width: 60rem; margin-left: 0%;">
     <div class="card-header">Add New Health Center</div>
     <div class="card-body text-primary">
         <h4 class="card-title">Fill Center Details</h4>
@@ -31,11 +35,11 @@
                 <label class="col-form-label" for="address">Physical Address</label>
                 <input type="text" class="form-control" placeholder="Physical address information " id="address" required ng-model="vm.address" >
             </div>
-            <div class="form-group">
-                <label for="logo">Logo/image</label>
-                <input type="file" class="form-control-file" id="logo" ng-model="logo" aria-describedby="fileHelp">
-                <small id="fileHelp" class="form-text text-muted"> Attach an image that represents this organisation</small>
-            </div>
+            <!--<div class="form-group">-->
+                <!--<label for="logo">Logo/image</label>-->
+                <!--<input type="file" class="form-control-file" id="logo" ng-model="logo" aria-describedby="fileHelp">-->
+                <!--<small id="fileHelp" class="form-text text-muted"> Attach an image that represents this organisation</small>-->
+            <!--</div>-->
             <div class="form-group">
                 <label for="description">About the organisation</label>
                 <textarea class="form-control" id="description" rows="3" ng-model="vm.description" required></textarea>
@@ -44,4 +48,5 @@
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>
     </div>
+</div>
 </div>

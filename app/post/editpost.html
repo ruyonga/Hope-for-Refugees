@@ -1,0 +1,36 @@
+<div class="container">
+    <div ng-if="vm.message" class="alert alert-dismissible alert-success" style="max-width: 40rem;">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <p>{{ vm.message }}</p>
+    </div>
+    <div ng-if="vm.error" class="alert alert-dismissible alert-danger" style="max-width: 40rem;">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <p>{{ vm.error }}</p>
+    </div>
+    <h3>Edit Post {{vm.postTitle}}</h3>
+    <div ng-hide="vm.message" class="card border-primary" style="max-width: 60rem;">
+        <div class="card-header">Edit Post</div>
+        <div class="card-body text-primary">
+            <h4 class="card-title">Update post content.</h4>
+            <form  name="edit_form" ng-submit="vm.editPost()">
+                <input type="hidden" id='hiddenId' />
+                <div class="form-group">
+                    <label class="col-form-label" for="postTitle">Post Title</label>
+                    <input type="text" class="form-control" placeholder="Default input" id="postTitle" ng-model="vm.postTitle" >
+                </div>
+
+                <div class="form-group">
+                    <label for="body">Description </label>
+                    <textarea class="form-control" id="body" rows="3" ng-model="vm.body" ></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="postInputFile">Post Image</label>
+                    <input type="file" class="form-control-file" id="postInputFile" ng-model="vm.postInputFile" aria-describedby="fileHelp">
+                    <small id="fileHelp" class="form-text text-muted"> Attach an image that represents this content</small>
+                </div>
+                <button type="submit" class="btn btn-primary" >Submit</button>
+                <a type="submit" class="btn btn-danger" href="/#!/posts" >Cancel</a>
+
+            </form>
+        </div>
+    </div></div>

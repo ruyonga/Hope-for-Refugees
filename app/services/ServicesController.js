@@ -33,14 +33,7 @@ function ServicesController() {
      */
 
     vm.addService = function(){
-        var uploadTask = "";
-        var storageRef = firebase.storage().ref("folderName/logo.jpg");
-        var fileUpload = document.getElementById("logo");
-        console.log()
-        storageRef.on('change', function(evt) {
-            var firstFile = evt.target.fileUpload[0]; // get the first file uploaded
-             uploadTask = storageRef.put(firstFile);
-        });
+
         if(!vm.orgname || !vm.contactperson){
             vm.error = 'Please enter the contact person and name of service providers';
         }else{
@@ -52,9 +45,12 @@ function ServicesController() {
                 email : vm.email,
                 address: vm.address,
                 description: vm.description,
-                image: uploadTask.url
+                services: vm.services
+
 
             });
+
+            vm.message = "Service Provider added";
 
         }
     };
