@@ -1,7 +1,7 @@
 angular.module('hopefr')
     .controller('ServicesController', ServicesController);
 
-function ServicesController() {
+function ServicesController($scope, $firebaseArray, $location, $routeParams, $firebaseObject) {
     var serviceproviders = firebase.database().ref("serviceProviders/");
 
     var vm = this;
@@ -13,19 +13,27 @@ function ServicesController() {
     /**
      * Get all services  providers
      */
-    vm.serviceproviders = function () {
 
-        serviceproviders.orderByChild("orgname").on("child_added", function(data) {
-            console.log(data.val());
+        serviceproviders.on("child_added", function(data) {
+
+            var list = $firebaseArray(serviceproviders);
+
+            list.$loaded().then(function () {
+
+                $scope.list = [];
+                angular.forEach(list, function (value, key) {
+
+                    $scope.list.push({id: key, data: value})
+                });
+                vm.centers = $scope.list;
+                console.log(vm.centers);
+            });
 
 
         }, function (error) {
 
             console.log("Error: " + error.message);
         });
-
-    };
-    console.log(vm.serviceproviders());
     serviceproviders.off("value");
 
     /**
@@ -52,6 +60,86 @@ function ServicesController() {
 
             vm.message = "Service Provider added";
 
+        }
+    };
+
+    vm.id =  $routeParams.id;
+
+
+    /**
+     * GEt one posts
+     * @type {Array}
+     */
+    if(vm.id != null){
+        console.log("Will get one post"+ vm.id);
+        vm.post = [];
+        var ref = firebase.database().ref("serviceProviders/"+$routeParams.id);
+        ref.on('value', function(snapshot) {
+
+            vm.orgname = snapshot.val().orgname;
+            vm.contactperson = snapshot.val().contactperson;
+            vm.phone = snapshot.val().phone;
+            vm.email = snapshot.val().email;
+            vm.address = snapshot.val().address;
+            vm.description = snapshot.val().description;
+            console.log( vm.details);
+        });
+
+    }
+
+
+
+
+    /**
+     * Delete item
+     */
+    vm.delete  = function () {
+        console.log("Delete this bitch");
+        var err1;
+        firebase.database().ref("serviceProviders/"+$routeParams.id).remove().catch( function ( err) {
+            err1 = err;
+            vm.error = "Could complete request at this moment";
+        });
+
+        if(!err1){
+            vm.message = "Post Deleted successfully";
+            $location.path('/services')
+        }
+    } ;
+
+
+
+    vm.editservice= function () {
+        var err1;
+        console.log("called edit post");
+        var ref = firebase.database().ref("serviceProviders/"+$routeParams.id);
+        console.log("ref linkt"+$routeParams.id);
+
+
+        if($routeParams.id != null) {
+
+            var serviceProvider = {
+
+                orgname : vm.orgname,
+                contactperson : vm.contactperson,
+                phone : vm.phone,
+                email : vm.email,
+                address: vm.address,
+                description: vm.description,
+                services: vm.services
+
+            };
+            ref.update(serviceProvider).catch(function(err){
+                err1 = err;
+                vm.error = "An error occurred while updating post"+ err;
+            });
+
+            if(!err1){
+                vm.message = "Service Provider updated successfully ";
+                $location.path('/services')
+            }
+        }else{
+            vm.error = "Need to have select a post"
         }
     };
 

@@ -1,7 +1,7 @@
 angular.module('hopefr')
     .controller('PoliceController', PoliceController);
 
-function PoliceController($scope, $firebaseArray) {
+function PoliceController($scope,$firebaseArray,$location, $routeParams,$firebaseObject) {
 
     var police = firebase.database().ref("police/");
 
@@ -10,6 +10,9 @@ function PoliceController($scope, $firebaseArray) {
     vm.name = "Police Stations";
     vm.title = "Polices Stations";
     vm.showbar = true;
+
+
+
 
     /**
      * Get all Police posts
@@ -59,40 +62,67 @@ function PoliceController($scope, $firebaseArray) {
 
 
 
+    vm.id =  $routeParams.id;
+
+
+    /**
+     * GEt one posts
+     * @type {Array}
+     */
+    if(vm.id != null){
+        console.log("Will get one post"+ vm.id);
+        vm.post = [];
+        var ref = firebase.database().ref("police/"+$routeParams.id);
+        ref.on('value', function(snapshot) {
+
+            vm.postname = snapshot.val().postname;
+            vm.incharge = snapshot.val().incharge;
+            vm.phone = snapshot.val().phone;
+            vm.details = snapshot.val().details;
+            console.log( vm.details);
+        });
+
+    }
+
+
+
 
     /**
      * Delete item
      */
     vm.delete  = function () {
-        var err1
-        firebase.database().ref("posts/"+$routeParams.id).remove().catch( function ( err) {
+        console.log("Delete this bitch");
+        var err1;
+        firebase.database().ref("police/"+$routeParams.id).remove().catch( function ( err) {
             err1 = err;
             vm.error = "Could complete request at this moment";
         });
 
         if(!err1){
             vm.message = "Post Deleted successfully";
-            $location.path('/posts')
+            $location.path('/police')
         }
     } ;
 
 
 
-    vm.editPost = function () {
+    vm.editpolice = function () {
         var err1;
         console.log("called edit post");
-        var ref = firebase.database().ref("posts/"+$routeParams.id);
+        var ref = firebase.database().ref("police/"+$routeParams.id);
         console.log("ref linkt"+$routeParams.id);
 
 
         if($routeParams.id != null) {
 
-            var myposts = {
-                postTitle: vm.postTitle,
-                body: vm.body
+            var mypolice = {
+                postname: vm.postname,
+                incharge: vm.incharge,
+                phone: vm.phone,
+                details: vm.details
 
             };
-            ref.update(myposts).catch(function(err){
+            ref.update(mypolice).catch(function(err){
                 err1 = err;
                 vm.error = "An error occurred while updating post"+ err;
             });
@@ -100,7 +130,7 @@ function PoliceController($scope, $firebaseArray) {
             if(!err1){
                 vm.message = "Post updated successfully ";
 
-                $location.path('/posts')
+                $location.path('/police')
             }
         }else{
             vm.error = "Need to have select a post"
