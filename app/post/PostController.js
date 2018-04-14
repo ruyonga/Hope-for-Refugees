@@ -154,18 +154,19 @@ function PostController($scope, $firebaseArray, $location, $routeParams, $fireba
     /**
      * Delete item
      */
-    vm.delete = function () {
-        var err1;
-        firebase.database().ref("posts/" + $routeParams.id).remove().catch(function (err) {
-            err1 = err;
-            vm.error = "Could complete request at this moment";
+    vm.delete  = function (id) {
+        var err1 = false;
+        console.log("Delete this bitch" + id);
+        firebase.database().ref("posts/"+id).remove().catch(function (err) {
+            console.log(err1);
+            err1 = true;
+            vm.error = "An error occurred while deleting item, please try again";
         });
-
-        if (!err1) {
-            vm.message = "Post Deleted successfully";
-            $location.path('/posts')
+        if(!err1){
+            console.log(err1);
+            vm.message = "Item deleted successfully";
         }
-    };
+    } ;
 
 
     vm.editPost = function () {

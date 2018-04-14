@@ -7,8 +7,6 @@ function ServicesController($scope,$firebaseArray, $location, $routeParams, $fir
     var vm = this;
     vm.name = "Health Centers";
     vm.title = "Health Centers";
-    //using facatory
-    vm.showbar = true;
 
     /**
      * Get all services  providers
@@ -88,26 +86,23 @@ function ServicesController($scope,$firebaseArray, $location, $routeParams, $fir
 
                 console.log( vm.description);
         });
-
-    }
-
-
+        }
 
 
     /**
      * Delete item
      */
-    vm.delete  = function () {
-        console.log("Delete this bitch");
-        var err1;
-        firebase.database().ref("healthcenters/"+$routeParams.id).remove().catch( function ( err) {
-            err1 = err;
-            vm.error = "Could not complete request at this moment";
+    vm.delete  = function (id) {
+        var err1 = false;
+        console.log("Delete this bitch" + id);
+        firebase.database().ref("healthcenters/"+id).remove().catch(function (err) {
+            console.log(err1);
+            err1 = true;
+            vm.error = "An error occurred while deleting item, please try again";
         });
-
         if(!err1){
-            vm.message = "health center Deleted successfully";
-            $location.path('/healthcenters')
+            console.log(err1);
+            vm.message = "Item deleted successfully";
         }
     } ;
 
